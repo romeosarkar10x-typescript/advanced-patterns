@@ -72,7 +72,7 @@ const traffic_light_transitions = {
             return { s_type: traffic_light_state.YELLOW, duration: 5 };
         },
         [traffic_light_event.EMERGENCY]: (
-            state: green_state,
+            _state: green_state,
             event: emergency_event,
         ): red_state => {
             console.log(`🚨 Emergency ${event.vehicle_type}! Green to Red`);
@@ -113,8 +113,8 @@ const state3 = traffic_light.transition(state2, {
 console.log("After emergency:", state, state2, state3, "\n");
 
 // ❌ These would cause TypeScript errors (uncomment to see):
-// @ts-expect-error
+// @ts-expect-error: event EMERGENCY is not available on state RED
 traffic_light.transition({ s_type: traffic_light_state.RED, duration: 45 }, { e_type: traffic_light_event.EMERGENCY });
 
-// @ts-expect-error
+// @ts-expect-error: event EMERGENCY is not available on state YELLOW
 traffic_light.transition({ s_type: traffic_light_state.YELLOW, duration: 5 }, { e_type: traffic_light_event.EMERGENCY });
